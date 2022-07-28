@@ -22,13 +22,13 @@ grey	gy	8		0.01		1
 white	wh	9		-		-
 \EOT
 
-## Lets make all necessary header:
+## Lets make all necessary headers:
 COLORS=$(tail -n+2 rings.tsv | cut -f1)
 COLOR_CODES=$(tail -n+2 rings.tsv | cut -f2)
 
 ## Makes quoted comma separated list from array
 values_list() {
-        acc=""
+	acc=""
 	for f in $@; do 
 		test "$acc" && acc+=", "\"$f\" || acc=\"$f\";
 	done
