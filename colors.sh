@@ -3,10 +3,9 @@
 # Resistor colour code
 
 ## Ring colour table:
-TABLES_FIRST_SIGNIFICAT_VALUE=3
-
 cat > rings.tsv << \\EOT
-Colour	Code	Power of 10	Tolerance %	Temperature coefficient
+		Value,				Temperature
+Colour	Code	Power of 10	Tolerance %	coefficient
 pink	pk	-3		-		-
 silver	sr	-2		10		-
 gold	gd	-1		5		-
@@ -23,21 +22,28 @@ white	wh	9		-		-
 \EOT
 
 ## Lets make all necessary headers:
-COLORS=$(tail -n+2 rings.tsv | cut -f1)
-COLOR_CODES=$(tail -n+2 rings.tsv | cut -f2)
+body() {
+	tail -n+3 rings.tsv
+}
 
-## Makes quoted comma separated list from array
+## Joins string with separator
 values_list() {
-	acc=""
-	for f in $@; do 
-		test "$acc" && acc+=", "\"$f\" || acc=\"$f\";
+	local acc=""
+	local sep=$1
+	local lines=$( cat )
+	for f in $lines; do
+		test -n "$acc" && acc+=$sep$f || acc=$f;
 	done
 	echo $acc
 }
 
-colors_values=$(values_list $COLORS)
-echo '#'define COLORS {$colors_values}
-
-color_codes=$(values_list $COLOR_CODES)
-echo '#'define COLOR_CODES {$color_codes}
+# Band is vocabular of input values
+body | cut -f1 | nl -v0 > acc
+body | cut -f2 | nl -v0 >> acc
+sort -k2 acc > band.tsv
+rm acc
+echo '#'define BAND \"$(cat band.tsv | cut -f2 | values_list '", "')\"
+echo '#'define BAND_INDEX $(cat band.tsv | cut -f1 | values_list ', ')
+echo '#'define NO_RING_TOLERANCE 200
+echo '#'define FIRST_SIGNIFICANT_INDEX 3
 
