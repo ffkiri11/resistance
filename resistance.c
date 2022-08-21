@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <assert.h>
 #include "resistance.h"
 
 static const char *bandv[] = {BAND};
@@ -85,7 +84,7 @@ static void process_bands(int nadd, const char *valv[])
 
   /* Initialize calculation */
   mul = 10;
-  npos = nadd + 2;
+  npos = 2 + nadd;
 
   /* I don't use floats in this app */
   while (nadd != 0) {
@@ -101,8 +100,11 @@ static void process_bands(int nadd, const char *valv[])
 	--npos;
   }
 
-  assert(*valv != NULL);
-  pw = parse_value(*valv++);
+  /* Parse ten power */
+  if (*valv != NULL)
+  	pw = parse_value(*valv++);
+  else
+	usage();
 
   /* Print resistance */
   r = significant * pow(10, pw);

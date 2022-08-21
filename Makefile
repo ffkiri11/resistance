@@ -9,4 +9,6 @@ clean:
 
 test: resistance
 	./test_resistance.sh && echo . || echo F
+install:
+	install resistance /usr/bin
 
