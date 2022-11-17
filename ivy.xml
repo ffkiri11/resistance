@@ -1,0 +1,10 @@
+<ivy-module version="1.0">
+   <info organisation="org.herasov" module="resistance"/>
+   <configurations>
+        <conf name="sources"  description="Source jars"/>
+        <conf name="binaries" description="binary jars"/>
+    </configurations>
+    <dependencies>
+        <dependency org="org.scala-lang" name="scala3-library_3" rev="3.2.0" conf="binaries->default" />
+    </dependencies>
+</ivy-module>

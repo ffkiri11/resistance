@@ -1,0 +1,7 @@
+.jpm/**
+jpm.jar
+*.swp
+**/*.swo
+*.jar
+apache-ivy-2.5.0*
+resistance.sh
