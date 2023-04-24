@@ -1,4 +1,0 @@
-Colorcode to resistance calculator
-==================================
-
-

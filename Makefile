@@ -4,3 +4,6 @@ resistance : resistance.c resistance.h
 install : resistance
 	install resistance /usr/bin
 
+clean : resistance
+	rm resistance
+
